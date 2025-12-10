@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Notes" Class="NotesDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=VANYA\SQLEXPRESS;Initial Catalog=Notes;Integrated Security=True;Encrypt=False" SettingsObjectName="it9.Properties.Settings" SettingsPropertyName="NotesConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Patients" Member="Patients">
+    <Type Name="Patients">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Фамилия" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Имя" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Отчество" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[Дата рождения]" Member="Дата_рождения" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="СоцСтатус" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Состояние" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Doctors" Member="Doctors">
+    <Type Name="Doctors">
+      <Column Name="Фамилия" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Имя" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Отчество" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Должность" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Квалификация" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Специализация" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Diagnosis" Member="Diagnosis">
+    <Type Name="Diagnosis">
+      <Column Name="Диагноз" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Лечение" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Срок лечения]" Member="Срок_лечения" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Учёт" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[Дата начала лечения]" Member="Дата_начала_лечения" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
