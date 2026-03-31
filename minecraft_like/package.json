@@ -1,0 +1,9 @@
+{
+  "name": "minecraft-like-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local server for minecraft_like demo",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
