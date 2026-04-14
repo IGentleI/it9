@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Храм Новомучеников и Исповедников Российских</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="bg-overlay"></div>
+
+    <header class="site-header">
+        <h1>Православный Храм Новомучеников и Исповедников Российских</h1>
+        <p>Добро пожаловать на официальный приходской сайт</p>
+    </header>
+
+    <main class="site-content">
+        <input type="radio" name="tabs" id="tab-news" checked>
+        <input type="radio" name="tabs" id="tab-schedule">
+        <input type="radio" name="tabs" id="tab-about">
+        <input type="radio" name="tabs" id="tab-relics">
+        <input type="radio" name="tabs" id="tab-clergy">
+        <input type="radio" name="tabs" id="tab-contacts">
+
+        <nav class="tabs" role="tablist" aria-label="Разделы сайта">
+            <label for="tab-news">Новости</label>
+            <label for="tab-schedule">Расписание богослужений</label>
+            <label for="tab-about">О храме</label>
+            <label for="tab-relics">Святые мощи</label>
+            <label for="tab-clergy">Духовенство</label>
+            <label for="tab-contacts">Контакты</label>
+        </nav>
+
+        <section class="panels">
+            <article class="panel news-panel">
+                <h2>Новости</h2>
+                <ul>
+                    <li><strong>12 апреля:</strong> Всенощное бдение в 17:00.</li>
+                    <li><strong>14 апреля:</strong> Литургия в 8:30, молебен о здравии после службы.</li>
+                    <li><strong>20 апреля:</strong> Начинается подготовка к пасхальным торжествам.</li>
+                </ul>
+            </article>
+
+            <article class="panel schedule-panel">
+                <h2>Расписание богослужений</h2>
+                <table>
+                    <tr><th>День</th><th>Время</th><th>Богослужение</th></tr>
+                    <tr><td>Суббота</td><td>17:00</td><td>Всенощное бдение</td></tr>
+                    <tr><td>Воскресенье</td><td>08:30</td><td>Божественная литургия</td></tr>
+                    <tr><td>Среда</td><td>18:00</td><td>Акафист Новомученикам</td></tr>
+                </table>
+            </article>
+
+            <article class="panel about-panel">
+                <h2>О храме</h2>
+                <p>
+                    Храм Новомучеников и Исповедников Российских является центром
+                    молитвенной жизни прихода, местом духовного утешения и совместной
+                    церковной деятельности.
+                </p>
+            </article>
+
+            <article class="panel relics-panel">
+                <h2>Святые мощи</h2>
+                <p>
+                    В храме находятся частицы святых мощей новомучеников,
+                    перед которыми регулярно совершаются молебны.
+                </p>
+            </article>
+
+            <article class="panel clergy-panel">
+                <h2>Духовенство</h2>
+                <p><strong>Настоятель:</strong> протоиерей Александр</p>
+                <p><strong>Священник:</strong> иерей Николай</p>
+                <p><strong>Диакон:</strong> диакон Сергий</p>
+            </article>
+
+            <article class="panel contacts-panel">
+                <h2>Контакты</h2>
+                <p><strong>Адрес:</strong> ул. Храмовая, д. 1</p>
+                <p><strong>Телефон:</strong> +7 (900) 000-00-00</p>
+                <p><strong>Email:</strong> info@hram-example.ru</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 Храм Новомучеников и Исповедников Российских</p>
+    </footer>
+</body>
+</html>

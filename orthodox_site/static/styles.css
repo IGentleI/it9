@@ -1,0 +1,120 @@
+:root {
+    --deep-red: #7a0012;
+    --light-red: #b42339;
+    --soft-white: rgba(255, 255, 255, 0.92);
+    --text: #3a0008;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--text);
+    background: url('/static/church.jpg') center/cover fixed no-repeat;
+    position: relative;
+}
+
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(122, 0, 18, 0.45), rgba(255, 255, 255, 0.45));
+    z-index: 0;
+}
+
+.site-header,
+.site-content,
+.site-footer {
+    position: relative;
+    z-index: 1;
+}
+
+.site-header {
+    text-align: center;
+    padding: 24px 16px 8px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.site-content {
+    max-width: 1024px;
+    margin: 16px auto;
+    padding: 0 16px 24px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tabs label {
+    background: var(--deep-red);
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 8px 8px 0 0;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.panels {
+    background: var(--soft-white);
+    border: 3px solid var(--deep-red);
+    border-radius: 0 12px 12px 12px;
+    padding: 18px;
+    min-height: 280px;
+}
+
+.panel {
+    display: none;
+}
+
+#tab-news:checked ~ .tabs label[for="tab-news"],
+#tab-schedule:checked ~ .tabs label[for="tab-schedule"],
+#tab-about:checked ~ .tabs label[for="tab-about"],
+#tab-relics:checked ~ .tabs label[for="tab-relics"],
+#tab-clergy:checked ~ .tabs label[for="tab-clergy"],
+#tab-contacts:checked ~ .tabs label[for="tab-contacts"] {
+    background: var(--light-red);
+}
+
+#tab-news:checked ~ .panels .news-panel,
+#tab-schedule:checked ~ .panels .schedule-panel,
+#tab-about:checked ~ .panels .about-panel,
+#tab-relics:checked ~ .panels .relics-panel,
+#tab-clergy:checked ~ .panels .clergy-panel,
+#tab-contacts:checked ~ .panels .contacts-panel {
+    display: block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #9d3a48;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: #f6dbe0;
+}
+
+.site-footer {
+    text-align: center;
+    color: #fff;
+    margin: 24px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
