@@ -30,7 +30,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("FLASK_SECRET_KEY", "change-me-in-production")
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
 
-
 DEFAULT_DATA = {
     "news": [
         {
@@ -79,7 +78,6 @@ def load_data() -> dict:
 
 
 def save_data(data: dict) -> None:
-    DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
     with DATA_FILE.open("w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -99,6 +97,14 @@ def save_upload(file_storage) -> str:
     destination = UPLOAD_DIR / unique_name
     file_storage.save(destination)
     return f"uploads/{unique_name}"
+
+
+def delete_upload_if_exists(relative_path: str) -> None:
+    if not relative_path:
+        return
+    abs_path = BASE_DIR / "static" / relative_path
+    if abs_path.exists() and abs_path.is_file():
+        abs_path.unlink()
 
 
 def login_required(view_func):
@@ -169,6 +175,52 @@ def add_news():
     return redirect(url_for("admin_panel"))
 
 
+@app.post("/admin/news/<news_id>/update")
+@login_required
+def update_news(news_id: str):
+    data = load_data()
+    for item in data["news"]:
+        if item["id"] == news_id:
+            title = request.form.get("title", "").strip()
+            text = request.form.get("text", "").strip()
+            if not title or not text:
+                flash("Заголовок и текст новости обязательны.", "error")
+                return redirect(url_for("admin_panel"))
+
+            item["title"] = title
+            item["text"] = text
+            new_image = save_upload(request.files.get("image"))
+            if new_image:
+                delete_upload_if_exists(item.get("image", ""))
+                item["image"] = new_image
+            save_data(data)
+            flash("Новость обновлена.", "success")
+            break
+    else:
+        flash("Новость не найдена.", "error")
+    return redirect(url_for("admin_panel"))
+
+
+@app.post("/admin/news/<news_id>/delete")
+@login_required
+def delete_news(news_id: str):
+    data = load_data()
+    old_len = len(data["news"])
+    kept = []
+    for item in data["news"]:
+        if item["id"] == news_id:
+            delete_upload_if_exists(item.get("image", ""))
+        else:
+            kept.append(item)
+    data["news"] = kept
+    if len(kept) == old_len:
+        flash("Новость не найдена.", "error")
+    else:
+        save_data(data)
+        flash("Новость удалена.", "success")
+    return redirect(url_for("admin_panel"))
+
+
 @app.post("/admin/clergy/add")
 @login_required
 def add_clergy():
@@ -194,6 +246,54 @@ def add_clergy():
     return redirect(url_for("admin_panel"))
 
 
+@app.post("/admin/clergy/<clergy_id>/update")
+@login_required
+def update_clergy(clergy_id: str):
+    data = load_data()
+    for person in data["clergy"]:
+        if person["id"] == clergy_id:
+            name = request.form.get("name", "").strip()
+            role = request.form.get("role", "").strip()
+            bio = request.form.get("bio", "").strip()
+            if not name or not role:
+                flash("Имя и сан/должность обязательны.", "error")
+                return redirect(url_for("admin_panel"))
+
+            person["name"] = name
+            person["role"] = role
+            person["bio"] = bio
+            new_photo = save_upload(request.files.get("photo"))
+            if new_photo:
+                delete_upload_if_exists(person.get("photo", ""))
+                person["photo"] = new_photo
+            save_data(data)
+            flash("Данные клирика обновлены.", "success")
+            break
+    else:
+        flash("Клирик не найден.", "error")
+    return redirect(url_for("admin_panel"))
+
+
+@app.post("/admin/clergy/<clergy_id>/delete")
+@login_required
+def delete_clergy(clergy_id: str):
+    data = load_data()
+    old_len = len(data["clergy"])
+    kept = []
+    for person in data["clergy"]:
+        if person["id"] == clergy_id:
+            delete_upload_if_exists(person.get("photo", ""))
+        else:
+            kept.append(person)
+    data["clergy"] = kept
+    if len(kept) == old_len:
+        flash("Клирик не найден.", "error")
+    else:
+        save_data(data)
+        flash("Клирик удален.", "success")
+    return redirect(url_for("admin_panel"))
+
+
 @app.post("/admin/schedule/update")
 @login_required
 def update_schedule():
@@ -203,6 +303,7 @@ def update_schedule():
 
     data["schedule"]["text"] = text
     if image_path:
+        delete_upload_if_exists(data["schedule"].get("image", ""))
         data["schedule"]["image"] = image_path
     data["schedule"]["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
     save_data(data)

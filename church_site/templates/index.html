@@ -12,14 +12,6 @@
     <header class="site-header">
         <h1>Православный Храм Новомучеников и Исповедников Российских</h1>
         <p>Добро пожаловать на официальный приходской сайт</p>
-        <div class="admin-links">
-            <a href="{{ url_for('admin_panel') }}">Панель администратора</a>
-            {% if session.get('is_admin') %}
-            <a href="{{ url_for('admin_logout') }}">Выйти</a>
-            {% else %}
-            <a href="{{ url_for('admin_login') }}">Вход</a>
-            {% endif %}
-        </div>
     </header>
 
     <main class="content">
@@ -51,7 +43,7 @@
         <section class="panel" id="schedule" role="tabpanel" hidden>
             <h2>Расписание богослужений</h2>
             {% if data.schedule.image %}
-                <img src="{{ url_for('static', filename=data.schedule.image) }}" alt="Текущее расписание богослужений" class="schedule-image">
+            <img src="{{ url_for('static', filename=data.schedule.image) }}" alt="Текущее расписание богослужений" class="schedule-image">
             {% endif %}
             {% if data.schedule.text %}
             <pre class="schedule-text">{{ data.schedule.text }}</pre>
@@ -73,15 +65,17 @@
 
         <section class="panel" id="clergy" role="tabpanel" hidden>
             <h2>Духовенство</h2>
-            <div class="clergy-grid">
+            <div class="clergy-list">
                 {% for person in data.clergy %}
-                <article class="card clergy-card">
+                <article class="card clergy-row">
                     {% if person.photo %}
                     <img src="{{ url_for('static', filename=person.photo) }}" alt="{{ person.name }}" class="clergy-photo">
                     {% endif %}
-                    <h3>{{ person.name }}</h3>
-                    <p><strong>{{ person.role }}</strong></p>
-                    {% if person.bio %}<p>{{ person.bio }}</p>{% endif %}
+                    <div>
+                        <h3>{{ person.name }}</h3>
+                        <p><strong>{{ person.role }}</strong></p>
+                        {% if person.bio %}<p>{{ person.bio }}</p>{% endif %}
+                    </div>
                 </article>
                 {% endfor %}
             </div>

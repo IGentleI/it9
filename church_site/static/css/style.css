@@ -22,8 +22,7 @@ body {
 .site-header h1 { margin: 0; font-size: clamp(1.4rem, 2.6vw, 2.3rem); }
 .site-header p { margin-top: 8px; }
 
-.admin-links { display: flex; justify-content: center; gap: 12px; }
-.admin-links a, a { color: #ffd5d5; }
+a { color: #ffd5d5; }
 
 .content, .admin-wrap {
     max-width: 1020px;
@@ -64,11 +63,15 @@ body {
 
 .meta { color: #7d4646; font-size: 0.9rem; }
 .item-image, .schedule-image {
+    display: block;
     width: 100%;
-    max-width: 540px;
+    height: auto;
+    max-height: min(70vh, 720px);
+    object-fit: contain;
     border-radius: 10px;
     margin: 8px 0;
     border: 1px solid #c58a8a;
+    background: #fff;
 }
 
 .schedule-text {
@@ -79,14 +82,21 @@ body {
     padding: 10px;
 }
 
-.clergy-grid {
+.clergy-list {
     display: grid;
     gap: 12px;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
+
+.clergy-row {
+    display: grid;
+    grid-template-columns: minmax(170px, 220px) 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
 .clergy-photo {
     width: 100%;
-    max-height: 280px;
+    height: 220px;
     object-fit: cover;
     border-radius: 8px;
     border: 1px solid #c58a8a;
@@ -101,7 +111,7 @@ body {
     padding: 8px;
     font: inherit;
 }
-.admin-form button {
+.admin-form button, .inline-form button {
     width: fit-content;
     border: none;
     background: #8c1111;
@@ -111,8 +121,23 @@ body {
     font-weight: 700;
     cursor: pointer;
 }
+.inline-form { margin-top: 8px; }
+.inline-form .danger { background: #5d0505; }
+
 .flash { padding: 8px 10px; border-radius: 6px; }
 .flash.success { background: #e7f6e7; color: #135a13; }
 .flash.error { background: #ffe5e5; color: #7b0f0f; }
 
 .auth-wrap { max-width: 520px; margin: 64px auto; padding: 0 14px; }
+
+@media (max-width: 720px) {
+    .clergy-row {
+        grid-template-columns: 1fr;
+    }
+
+    .clergy-photo {
+        height: auto;
+        max-height: 360px;
+        object-fit: contain;
+    }
+}
