@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Храм Новомучеников и Исповедников Российских</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="bg-overlay"></div>
+
+    <header class="site-header">
+      <h1>Православный Храм Новомучеников и Исповедников Российских</h1>
+      <p>Добро пожаловать на официальный приходской сайт</p>
+    </header>
+
+    <nav class="tabs">
+      <a href="#news">Новости</a>
+      <a href="#schedule">Расписание богослужений</a>
+      <a href="#about">О храме</a>
+      <a href="#relics">Святые мощи</a>
+      <a href="#clergy">Духовенство</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <main>
+      <section id="news" class="card">
+        <h2>Новости</h2>
+        <ul>
+          <li><strong>13 апреля:</strong> Всенощное бдение накануне праздника.</li>
+          <li><strong>20 апреля:</strong> Благотворительная ярмарка при храме.</li>
+          <li><strong>27 апреля:</strong> Встреча молодежного православного клуба.</li>
+        </ul>
+      </section>
+
+      <section id="schedule" class="card">
+        <h2>Расписание богослужений</h2>
+        <p><strong>Суббота:</strong> 17:00 — Всенощное бдение</p>
+        <p><strong>Воскресенье:</strong> 08:00 — Исповедь, 09:00 — Божественная Литургия</p>
+        <p><strong>Среда:</strong> 18:00 — Молебен с акафистом</p>
+      </section>
+
+      <section id="about" class="card">
+        <h2>О храме</h2>
+        <p>
+          Храм посвящен подвигу Новомучеников и Исповедников Российских. Приход
+          ведет богослужебную, просветительскую и социальную деятельность.
+        </p>
+      </section>
+
+      <section id="relics" class="card">
+        <h2>Святые мощи</h2>
+        <p>
+          В храме пребывают частицы святых мощей Новомучеников Российских,
+          доступные для поклонения в дни богослужений.
+        </p>
+      </section>
+
+      <section id="clergy" class="card">
+        <h2>Духовенство</h2>
+        <p><strong>Настоятель:</strong> протоиерей Александр</p>
+        <p><strong>Клирик:</strong> иерей Сергий</p>
+      </section>
+
+      <section id="contacts" class="card">
+        <h2>Контакты</h2>
+        <p><strong>Адрес:</strong> ул. Храмовая, д. 1</p>
+        <p><strong>Телефон:</strong> +7 (900) 000-00-00</p>
+        <p><strong>E-mail:</strong> info@hram.ru</p>
+      </section>
+    </main>
+  </body>
+</html>
