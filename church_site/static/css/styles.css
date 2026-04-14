@@ -1,0 +1,108 @@
+:root {
+    --dark-red: #7b1113;
+    --dark-red-hover: #941719;
+    --white: #ffffff;
+    --text-dark: #1f1f1f;
+    --overlay-bg: rgba(123, 17, 19, 0.58);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Georgia", "Times New Roman", serif;
+    color: var(--white);
+    background-image: url('/static/images/temple-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(140deg, rgba(90, 10, 12, 0.72), rgba(255, 255, 255, 0.18));
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1040px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.84);
+    border: 2px solid var(--dark-red);
+    border-radius: 14px;
+    padding: 24px;
+    color: var(--text-dark);
+    backdrop-filter: blur(1px);
+}
+
+.site-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.site-header h1 {
+    margin: 0;
+    color: var(--dark-red);
+    font-size: 2rem;
+}
+
+.site-header p {
+    margin: 8px 0 0;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tab {
+    border: none;
+    background: var(--dark-red);
+    color: var(--white);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tab:hover,
+.tab.active {
+    background: var(--dark-red-hover);
+}
+
+.tab-content {
+    display: none;
+    background: rgba(255, 255, 255, 0.96);
+    border-left: 4px solid var(--dark-red);
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h2 {
+    margin-top: 0;
+    color: var(--dark-red);
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px 12px;
+        padding: 16px;
+    }
+
+    .site-header h1 {
+        font-size: 1.5rem;
+    }
+}
