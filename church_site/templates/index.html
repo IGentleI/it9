@@ -12,6 +12,14 @@
     <header class="site-header">
         <h1>Православный Храм Новомучеников и Исповедников Российских</h1>
         <p>Добро пожаловать на официальный приходской сайт</p>
+        <div class="admin-links">
+            <a href="{{ url_for('admin_panel') }}">Панель администратора</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('admin_logout') }}">Выйти</a>
+            {% else %}
+            <a href="{{ url_for('admin_login') }}">Вход</a>
+            {% endif %}
+        </div>
     </header>
 
     <main class="content">
@@ -26,41 +34,64 @@
 
         <section class="panel active" id="news" role="tabpanel">
             <h2>Новости</h2>
-            <ul>
-                <li><strong>14 апреля:</strong> Вечернее богослужение в 17:00.</li>
-                <li><strong>20 апреля:</strong> Приходской субботник после Литургии.</li>
-                <li><strong>28 апреля:</strong> Беседа с молодежью в приходском доме.</li>
-            </ul>
+            {% for item in data.news %}
+            <article class="card">
+                <h3>{{ item.title }}</h3>
+                <p class="meta">{{ item.date }}</p>
+                {% if item.image %}
+                <img src="{{ url_for('static', filename=item.image) }}" alt="Фото к новости {{ item.title }}" class="item-image">
+                {% endif %}
+                <p>{{ item.text }}</p>
+            </article>
+            {% else %}
+            <p>Пока новостей нет.</p>
+            {% endfor %}
         </section>
 
         <section class="panel" id="schedule" role="tabpanel" hidden>
             <h2>Расписание богослужений</h2>
-            <p><strong>Суббота:</strong> Всенощное бдение — 17:00</p>
-            <p><strong>Воскресенье:</strong> Божественная литургия — 08:30</p>
-            <p><strong>Праздничные дни:</strong> Литургия — 09:00</p>
+            {% if data.schedule.image %}
+                <img src="{{ url_for('static', filename=data.schedule.image) }}" alt="Текущее расписание богослужений" class="schedule-image">
+            {% endif %}
+            {% if data.schedule.text %}
+            <pre class="schedule-text">{{ data.schedule.text }}</pre>
+            {% endif %}
+            {% if data.schedule.updated_at %}
+            <p class="meta">Обновлено: {{ data.schedule.updated_at }}</p>
+            {% endif %}
         </section>
 
         <section class="panel" id="about" role="tabpanel" hidden>
             <h2>О храме</h2>
-            <p>Храм посвящен подвигу Новомучеников и Исповедников Российских. Приход ведет богослужебную, просветительскую и социальную деятельность.</p>
+            <p>{{ data.about }}</p>
         </section>
 
         <section class="panel" id="relics" role="tabpanel" hidden>
             <h2>Святые мощи</h2>
-            <p>В храме пребывает ковчег с частицами мощей святых, к которым верующие могут приложиться после богослужений.</p>
+            <p>{{ data.relics }}</p>
         </section>
 
         <section class="panel" id="clergy" role="tabpanel" hidden>
             <h2>Духовенство</h2>
-            <p><strong>Настоятель:</strong> протоиерей Александр</p>
-            <p><strong>Клирик:</strong> иерей Сергий</p>
+            <div class="clergy-grid">
+                {% for person in data.clergy %}
+                <article class="card clergy-card">
+                    {% if person.photo %}
+                    <img src="{{ url_for('static', filename=person.photo) }}" alt="{{ person.name }}" class="clergy-photo">
+                    {% endif %}
+                    <h3>{{ person.name }}</h3>
+                    <p><strong>{{ person.role }}</strong></p>
+                    {% if person.bio %}<p>{{ person.bio }}</p>{% endif %}
+                </article>
+                {% endfor %}
+            </div>
         </section>
 
         <section class="panel" id="contacts" role="tabpanel" hidden>
             <h2>Контакты</h2>
-            <p><strong>Адрес:</strong> г. [Ваш город], ул. [Название улицы], д. [номер]</p>
-            <p><strong>Телефон:</strong> +7 (000) 000-00-00</p>
-            <p><strong>Email:</strong> info@hram-example.ru</p>
+            <p><strong>Адрес:</strong> {{ data.contacts.address }}</p>
+            <p><strong>Телефон:</strong> {{ data.contacts.phone }}</p>
+            <p><strong>Email:</strong> {{ data.contacts.email }}</p>
         </section>
     </main>
 
@@ -71,17 +102,14 @@
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {
                 const target = tab.dataset.tab;
-
                 tabs.forEach((item) => {
                     item.classList.remove('active');
                     item.setAttribute('aria-selected', 'false');
                 });
-
                 panels.forEach((panel) => {
                     panel.classList.remove('active');
                     panel.hidden = true;
                 });
-
                 tab.classList.add('active');
                 tab.setAttribute('aria-selected', 'true');
                 document.getElementById(target).classList.add('active');
