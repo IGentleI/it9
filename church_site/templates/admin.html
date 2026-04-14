@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="admin-page">
+<div class="overlay"></div>
+<main class="admin-wrap">
+    <section class="panel">
+        <h2>Панель администратора</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <p class="flash {{ category }}">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <p>Изменения на сайте может делать только администратор.</p>
+        <p><a href="{{ url_for('index') }}">На сайт</a> | <a href="{{ url_for('admin_logout') }}">Выйти</a></p>
+    </section>
+
+    <section class="panel">
+        <h3>Добавить новость</h3>
+        <form method="post" action="{{ url_for('add_news') }}" enctype="multipart/form-data" class="admin-form">
+            <label>Заголовок
+                <input type="text" name="title" required>
+            </label>
+            <label>Текст
+                <textarea name="text" rows="4" required></textarea>
+            </label>
+            <label>Фото статьи
+                <input type="file" name="image" accept="image/*">
+            </label>
+            <button type="submit">Добавить новость</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h3>Редактировать / удалить новости</h3>
+        {% for item in data.news %}
+        <article class="card">
+            <form method="post" action="{{ url_for('update_news', news_id=item.id) }}" enctype="multipart/form-data" class="admin-form">
+                <label>Заголовок
+                    <input type="text" name="title" value="{{ item.title }}" required>
+                </label>
+                <label>Текст
+                    <textarea name="text" rows="3" required>{{ item.text }}</textarea>
+                </label>
+                <label>Новое фото (необязательно)
+                    <input type="file" name="image" accept="image/*">
+                </label>
+                <button type="submit">Сохранить новость</button>
+            </form>
+            <form method="post" action="{{ url_for('delete_news', news_id=item.id) }}" class="inline-form">
+                <button type="submit" class="danger">Удалить новость</button>
+            </form>
+        </article>
+        {% else %}
+        <p>Новостей пока нет.</p>
+        {% endfor %}
+    </section>
+
+    <section class="panel">
+        <h3>Добавить клирика</h3>
+        <form method="post" action="{{ url_for('add_clergy') }}" enctype="multipart/form-data" class="admin-form">
+            <label>Имя
+                <input type="text" name="name" required>
+            </label>
+            <label>Сан / должность
+                <input type="text" name="role" required>
+            </label>
+            <label>Кратко
+                <textarea name="bio" rows="3"></textarea>
+            </label>
+            <label>Фотография клирика
+                <input type="file" name="photo" accept="image/*">
+            </label>
+            <button type="submit">Добавить клирика</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h3>Редактировать / удалить клириков</h3>
+        {% for person in data.clergy %}
+        <article class="card">
+            <form method="post" action="{{ url_for('update_clergy', clergy_id=person.id) }}" enctype="multipart/form-data" class="admin-form">
+                <label>Имя
+                    <input type="text" name="name" value="{{ person.name }}" required>
+                </label>
+                <label>Сан / должность
+                    <input type="text" name="role" value="{{ person.role }}" required>
+                </label>
+                <label>Кратко
+                    <textarea name="bio" rows="3">{{ person.bio }}</textarea>
+                </label>
+                <label>Новое фото (необязательно)
+                    <input type="file" name="photo" accept="image/*">
+                </label>
+                <button type="submit">Сохранить клирика</button>
+            </form>
+            <form method="post" action="{{ url_for('delete_clergy', clergy_id=person.id) }}" class="inline-form">
+                <button type="submit" class="danger">Удалить клирика</button>
+            </form>
+        </article>
+        {% else %}
+        <p>Клириков пока нет.</p>
+        {% endfor %}
+    </section>
+
+    <section class="panel">
+        <h3>Обновить расписание</h3>
+        <form method="post" action="{{ url_for('update_schedule') }}" enctype="multipart/form-data" class="admin-form">
+            <label>Текст расписания (если нужно вручную)
+                <textarea name="text" rows="4">{{ data.schedule.text }}</textarea>
+            </label>
+            <label>Фото текущего расписания
+                <input type="file" name="image" accept="image/*">
+            </label>
+            <button type="submit">Сохранить расписание</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

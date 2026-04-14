@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Храм Новомучеников и Исповедников Российских</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <header class="site-header">
+        <h1>Православный Храм Новомучеников и Исповедников Российских</h1>
+        <p>Добро пожаловать на официальный приходской сайт</p>
+    </header>
+
+    <main class="content">
+        <nav class="tabs" role="tablist" aria-label="Разделы сайта">
+            <button class="tab active" role="tab" aria-selected="true" data-tab="news">Новости</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="schedule">Расписание богослужений</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="about">О храме</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="relics">Святые мощи</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="clergy">Духовенство</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="contacts">Контакты</button>
+        </nav>
+
+        <section class="panel active" id="news" role="tabpanel">
+            <h2>Новости</h2>
+            {% for item in data.news %}
+            <article class="card">
+                <h3>{{ item.title }}</h3>
+                <p class="meta">{{ item.date }}</p>
+                {% if item.image %}
+                <img src="{{ url_for('static', filename=item.image) }}" alt="Фото к новости {{ item.title }}" class="item-image">
+                {% endif %}
+                <p>{{ item.text }}</p>
+            </article>
+            {% else %}
+            <p>Пока новостей нет.</p>
+            {% endfor %}
+        </section>
+
+        <section class="panel" id="schedule" role="tabpanel" hidden>
+            <h2>Расписание богослужений</h2>
+            {% if data.schedule.image %}
+            <img src="{{ url_for('static', filename=data.schedule.image) }}" alt="Текущее расписание богослужений" class="schedule-image">
+            {% endif %}
+            {% if data.schedule.text %}
+            <pre class="schedule-text">{{ data.schedule.text }}</pre>
+            {% endif %}
+            {% if data.schedule.updated_at %}
+            <p class="meta">Обновлено: {{ data.schedule.updated_at }}</p>
+            {% endif %}
+        </section>
+
+        <section class="panel" id="about" role="tabpanel" hidden>
+            <h2>О храме</h2>
+            <p>{{ data.about }}</p>
+        </section>
+
+        <section class="panel" id="relics" role="tabpanel" hidden>
+            <h2>Святые мощи</h2>
+            <p>{{ data.relics }}</p>
+        </section>
+
+        <section class="panel" id="clergy" role="tabpanel" hidden>
+            <h2>Духовенство</h2>
+            <div class="clergy-list">
+                {% for person in data.clergy %}
+                <article class="card clergy-row">
+                    {% if person.photo %}
+                    <img src="{{ url_for('static', filename=person.photo) }}" alt="{{ person.name }}" class="clergy-photo">
+                    {% endif %}
+                    <div>
+                        <h3>{{ person.name }}</h3>
+                        <p><strong>{{ person.role }}</strong></p>
+                        {% if person.bio %}<p>{{ person.bio }}</p>{% endif %}
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="panel" id="contacts" role="tabpanel" hidden>
+            <h2>Контакты</h2>
+            <p><strong>Адрес:</strong> {{ data.contacts.address }}</p>
+            <p><strong>Телефон:</strong> {{ data.contacts.phone }}</p>
+            <p><strong>Email:</strong> {{ data.contacts.email }}</p>
+        </section>
+    </main>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const panels = document.querySelectorAll('.panel');
+
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                tabs.forEach((item) => {
+                    item.classList.remove('active');
+                    item.setAttribute('aria-selected', 'false');
+                });
+                panels.forEach((panel) => {
+                    panel.classList.remove('active');
+                    panel.hidden = true;
+                });
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                document.getElementById(target).classList.add('active');
+                document.getElementById(target).hidden = false;
+            });
+        });
+    </script>
+</body>
+</html>

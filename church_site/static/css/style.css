@@ -1,0 +1,143 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    background: url('../images/church.jpg') center center / cover no-repeat fixed;
+    position: relative;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(35, 0, 0, 0.55);
+    z-index: 0;
+}
+
+.site-header, .content, .admin-wrap, .auth-wrap { position: relative; z-index: 1; }
+
+.site-header { text-align: center; padding: 32px 16px 14px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); }
+.site-header h1 { margin: 0; font-size: clamp(1.4rem, 2.6vw, 2.3rem); }
+.site-header p { margin-top: 8px; }
+
+a { color: #ffd5d5; }
+
+.content, .admin-wrap {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 20px 14px 36px;
+}
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.tab {
+    border: none;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 10px 10px 0 0;
+    background: #5c0a0a;
+    color: #fff;
+    font-weight: 700;
+}
+.tab:hover { background: #7a1010; }
+.tab.active { background: #9f1818; }
+
+.panel {
+    background: rgba(255, 255, 255, 0.93);
+    color: #2b0a0a;
+    border: 2px solid #9f1818;
+    border-radius: 0 12px 12px 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+}
+.panel h2, .panel h3 { margin-top: 0; color: #6d0c0c; }
+
+.card {
+    border: 1px solid #c58a8a;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.meta { color: #7d4646; font-size: 0.9rem; }
+.item-image, .schedule-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: min(70vh, 720px);
+    object-fit: contain;
+    border-radius: 10px;
+    margin: 8px 0;
+    border: 1px solid #c58a8a;
+    background: #fff;
+}
+
+.schedule-text {
+    white-space: pre-wrap;
+    background: #fff;
+    border: 1px solid #c58a8a;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.clergy-list {
+    display: grid;
+    gap: 12px;
+}
+
+.clergy-row {
+    display: grid;
+    grid-template-columns: minmax(170px, 220px) 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.clergy-photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #c58a8a;
+}
+
+.admin-form { display: grid; gap: 10px; }
+.admin-form label { display: grid; gap: 6px; font-weight: 600; }
+.admin-form input, .admin-form textarea {
+    width: 100%;
+    border: 1px solid #b36b6b;
+    border-radius: 6px;
+    padding: 8px;
+    font: inherit;
+}
+.admin-form button, .inline-form button {
+    width: fit-content;
+    border: none;
+    background: #8c1111;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.inline-form { margin-top: 8px; }
+.inline-form .danger { background: #5d0505; }
+
+.flash { padding: 8px 10px; border-radius: 6px; }
+.flash.success { background: #e7f6e7; color: #135a13; }
+.flash.error { background: #ffe5e5; color: #7b0f0f; }
+
+.auth-wrap { max-width: 520px; margin: 64px auto; padding: 0 14px; }
+
+@media (max-width: 720px) {
+    .clergy-row {
+        grid-template-columns: 1fr;
+    }
+
+    .clergy-photo {
+        height: auto;
+        max-height: 360px;
+        object-fit: contain;
+    }
+}
