@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Храм Новомучеников и Исповедников Российских</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <main class="container">
+        <header class="site-header">
+            <h1>Православный Храм Новомучеников и Исповедников Российских</h1>
+            <p>Официальный приходской сайт</p>
+        </header>
+
+        <nav class="tabs" aria-label="Основные разделы">
+            <button class="tab active" data-tab="news">Новости</button>
+            <button class="tab" data-tab="schedule">Расписание богослужений</button>
+            <button class="tab" data-tab="about">О храме</button>
+            <button class="tab" data-tab="relics">Святые мощи</button>
+            <button class="tab" data-tab="clergy">Духовенство</button>
+            <button class="tab" data-tab="contacts">Контакты</button>
+        </nav>
+
+        <section class="tab-content active" id="news">
+            <h2>Новости</h2>
+            <ul>
+                <li><strong>13 апреля:</strong> Праздничная литургия в 09:00.</li>
+                <li><strong>20 апреля:</strong> Вечер духовного пения после всенощной.</li>
+                <li><strong>27 апреля:</strong> Благотворительная ярмарка при храме.</li>
+            </ul>
+        </section>
+
+        <section class="tab-content" id="schedule">
+            <h2>Расписание богослужений</h2>
+            <p><strong>Суббота:</strong> Всенощное бдение — 17:00</p>
+            <p><strong>Воскресенье:</strong> Божественная Литургия — 08:30</p>
+            <p><strong>Будни:</strong> Молебен — 08:00, вечерняя служба — 17:00</p>
+        </section>
+
+        <section class="tab-content" id="about">
+            <h2>О храме</h2>
+            <p>Храм посвящён подвигу Новомучеников и Исповедников Российских. На приходе совершаются регулярные богослужения, работают воскресная школа и молодежная община.</p>
+        </section>
+
+        <section class="tab-content" id="relics">
+            <h2>Святые мощи</h2>
+            <p>В храме пребывают частицы мощей святых угодников Божиих для молитвенного поклонения верующих.</p>
+        </section>
+
+        <section class="tab-content" id="clergy">
+            <h2>Духовенство</h2>
+            <p><strong>Настоятель:</strong> протоиерей Александр</p>
+            <p><strong>Клирик:</strong> иерей Михаил</p>
+        </section>
+
+        <section class="tab-content" id="contacts">
+            <h2>Контакты</h2>
+            <p><strong>Адрес:</strong> г. Примерск, ул. Храмовая, 1</p>
+            <p><strong>Телефон:</strong> +7 (900) 123-45-67</p>
+            <p><strong>Email:</strong> info@hram-example.ru</p>
+        </section>
+    </main>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
